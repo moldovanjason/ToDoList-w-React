@@ -1,24 +1,47 @@
 import React from "react";
-
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+import { ListTask } from "./listtask";
 
 //create your first component
-export function Home() {
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+export class Home extends React.Component {
+	// create contructor to store variable(s)
+
+	// create state with empty array to store tasks
+
+	// create state variable for current task
+
+	//input field
+
+	//creat ul li list
+
+	//creat map function to inclue element on the list
+	constructor() {
+		super();
+		this.state = {
+			task: "",
+			taskList: []
+		};
+	}
+
+	updateTask = event => {
+		this.setState({ task: event.target.value });
+	};
+
+	saveTask = () => {};
+
+	render() {
+		return (
+			<div className="container">
+				<h1>ToDos</h1>
+				<input
+					value={this.state.task}
+					onChange={this.updateTask}
+					onKeyUp={this.saveTask}
+					placeholder="What needs to be done?"
+				/>
+				<ul>
+					<ListTask />
+				</ul>
+			</div>
+		);
+	}
 }
