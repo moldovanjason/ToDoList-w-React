@@ -101,18 +101,21 @@ export class Home extends React.Component {
 
 		return (
 			<div className="page container">
-				<h1>To Dos</h1>
+				<h1 className="title">To Do List</h1>
 				<input
+					className="placeholder"
 					value={this.state.task}
 					onChange={this.updateTask}
 					onKeyUp={this.saveTask}
-					placeholder="What needs to be done?"
+					placeholder="Enter your daily tasks!"
 				/>
 				<ul>
 					{this.state.taskListed.length ? (
 						listContent
 					) : (
-						<li>There is no task. Please add a task.</li>
+						<li className="notasks">
+							There is no task. Please add a task.
+						</li>
 					)}
 				</ul>
 			</div>

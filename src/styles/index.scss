@@ -9,16 +9,29 @@
 
 
 .page {
-    background:rgb(150, 235, 241);
+    background:rgb(52, 66, 53);
     padding:5px;
     margin:40px;
     border-radius: 10px;
     text-align: center;
-    width:20px;
+    width: 50%;
     color:white;
     font-size: 25px;
 }
 
+.title{
+    margin:20px
+}
+
+.placeholder {
+    width:350px;
+    text-align: center;
+    margin-bottom:20px;
+}
+
+.notasks{
+    font-weight: bold;
+}
 
 
 

@@ -17,7 +17,7 @@ export class ListTask extends React.Component {
 				{this.props.task}
 				<span>
 					<i
-						className={"fa fa-trash " + classToApply}
+						className={"fas fa-trash-alt " + classToApply}
 						onClick={() => this.props.deleteFunction(this.props.id)}
 					/>
 				</span>
