@@ -25,9 +25,17 @@ export class Home extends React.Component {
 	componentDidMount() {
 		fetch(
 			"https://assets.breatheco.de/apis/fake/todos/user/moldovanjasonFirst"
-		).then(function(response) {
-			console.log(response.json());
-		});
+		)
+			.then(response => {
+				if (response.ok) {
+					return response.json();
+				}
+			})
+			.then(data => {
+				this.setState({
+					taskListed: data
+				});
+			});
 	}
 
 	updateTask = event => {
@@ -36,13 +44,30 @@ export class Home extends React.Component {
 	saveTask = event => {
 		if (event.keyCode === 13) {
 			const newArr = [...this.state.taskListed];
-			newArr.push(this.state.task);
+			let newObj = { label: this.state.task, done: false };
+			newArr.push(newObj);
 			this.setState({
-				taskListed: newArr,
+				// taskListed: newArr,
 				task: ""
 			});
+			fetch(
+				"https://assets.breatheco.de/apis/fake/todos/user/moldovanjasonFirst",
+				{
+					method: "PUT", // or 'POST'
+					body: JSON.stringify(newArr), // data can be `string` or {object}!
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}
+			)
+				.then(res => res.json())
+				.then(response =>
+					console.log("Success:", JSON.stringify(response))
+				)
+				.catch(error => console.error("Error:", error));
 		}
 	};
+
 	deleteFunctionHandler = id => {
 		const returnArr = this.state.taskListed.filter(
 			(i, index) => index !== id
@@ -50,11 +75,11 @@ export class Home extends React.Component {
 		this.setState({ taskListed: returnArr });
 	};
 	render() {
-		var listContent = this.state.taskListed.map((liContent, index) => {
+		var listContent = this.state.taskListed.map((obj, index) => {
 			return (
 				<ListTask
 					key={index}
-					task={liContent}
+					task={obj.label}
 					deleteFunction={this.deleteFunctionHandler}
 					id={index}
 				/>
@@ -62,7 +87,7 @@ export class Home extends React.Component {
 		});
 
 		return (
-			<div className="container">
+			<div className="page container">
 				<h1>ToDos</h1>
 				<input
 					value={this.state.task}
