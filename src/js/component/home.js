@@ -18,8 +18,16 @@ export class Home extends React.Component {
 		super();
 		this.state = {
 			task: "",
-			taskList: []
+			taskListed: []
 		};
+	}
+
+	componentDidMount() {
+		fetch(
+			"https://assets.breatheco.de/apis/fake/todos/user/moldovanjasonFirst"
+		).then(function(response) {
+			console.log(response.json());
+		});
 	}
 
 	updateTask = event => {
@@ -35,13 +43,24 @@ export class Home extends React.Component {
 			});
 		}
 	};
-	deleteFunctionHandler = () => {
-		const returnArr = this.state.taskList.filter(
-			(i, index) => index !== this.id
+	deleteFunctionHandler = id => {
+		const returnArr = this.state.taskListed.filter(
+			(i, index) => index !== id
 		);
 		this.setState({ taskListed: returnArr });
 	};
 	render() {
+		var listContent = this.state.taskListed.map((liContent, index) => {
+			return (
+				<ListTask
+					key={index}
+					task={liContent}
+					deleteFunction={this.deleteFunctionHandler}
+					id={index}
+				/>
+			);
+		});
+
 		return (
 			<div className="container">
 				<h1>ToDos</h1>
@@ -52,16 +71,11 @@ export class Home extends React.Component {
 					placeholder="What needs to be done?"
 				/>
 				<ul>
-					{this.state.taskListed.map((liContent, index) => {
-						return (
-							<ListTask
-								key={index}
-								task={liContent}
-								deleteFunction={this.deleteFunctionHandler}
-								id={index}
-							/>
-						);
-					})}
+					{this.state.taskListed.length ? (
+						listContent
+					) : (
+						<li>There is no task. Please add a task.</li>
+					)}
 				</ul>
 			</div>
 		);
