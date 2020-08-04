@@ -114,7 +114,7 @@ export class Home extends React.Component {
 						listContent
 					) : (
 						<li className="notasks">
-							There is no task. Please add a task.
+							There are no daily tasks. Please add a task.
 						</li>
 					)}
 				</ul>
