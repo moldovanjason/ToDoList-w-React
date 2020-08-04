@@ -47,7 +47,7 @@ export class Home extends React.Component {
 			let newObj = { label: this.state.task, done: false };
 			newArr.push(newObj);
 			this.setState({
-				// taskListed: newArr,
+				taskListed: newArr,
 				task: ""
 			});
 			fetch(
@@ -73,6 +73,19 @@ export class Home extends React.Component {
 			(i, index) => index !== id
 		);
 		this.setState({ taskListed: returnArr });
+		fetch(
+			"https://assets.breatheco.de/apis/fake/todos/user/moldovanjasonFirst",
+			{
+				method: "PUT", // or 'POST'
+				body: JSON.stringify(returnArr), // data can be `string` or {object}!
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}
+		)
+			.then(res => res.json())
+			.then(response => console.log("Success:", JSON.stringify(response)))
+			.catch(error => console.error("Error:", error));
 	};
 	render() {
 		var listContent = this.state.taskListed.map((obj, index) => {
@@ -88,7 +101,7 @@ export class Home extends React.Component {
 
 		return (
 			<div className="page container">
-				<h1>ToDos</h1>
+				<h1>To Dos</h1>
 				<input
 					value={this.state.task}
 					onChange={this.updateTask}
