@@ -72,7 +72,8 @@ export class Home extends React.Component {
 		const returnArr = this.state.taskListed.filter(
 			(i, index) => index !== id
 		);
-		this.setState({ taskListed: returnArr });
+        this.setState({ taskListed: returnArr });
+
 		fetch(
 			"https://assets.breatheco.de/apis/fake/todos/user/moldovanjasonFirst",
 			{
@@ -86,7 +87,8 @@ export class Home extends React.Component {
 			.then(res => res.json())
 			.then(response => console.log("Success:", JSON.stringify(response)))
 			.catch(error => console.error("Error:", error));
-	};
+    };
+    
 	render() {
 		var listContent = this.state.taskListed.map((obj, index) => {
 			return (
